@@ -1,18 +1,23 @@
+import sys
 from PIL import Image
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
+
 
 User = get_user_model()
 
 
-class MinResolutionErrorExeption(Exception):
+
+class MinResolutionErrorExepin(Exception):
     pass
 
-class MaxResolutionErrorExeption(Exception):
+class MaxResolutionErrorExepin(Exception):
     pass
-
 
 class LatestProdcutsManeger:
 
@@ -68,15 +73,29 @@ class Product(models.Model):
         return self.title
 
     def save(self,*args,**kwargs):
+        # image = self.image
+        # img = Image.open(image)
+        # min_height, min_width = Product.MIN_RESOLUTION
+        # max_height, max_width = Product.MAX_RESOLUTION
+        # if img.height < min_height or img.width < min_width:
+        #     raise MinResolutionErrorExepin(f"Yuklangan rasim ko'rsatilganidan Kichik {img.height} x {img.width}")
+        # if img.height > max_height or img.width > max_width:
+        #     raise MaxResolutionErrorExepin(f"Yuklangan rasim ko'rsatilganidan Katta {img.height} x {img.width}")
         image = self.image
         img = Image.open(image)
-        min_height, min_width = self.MIN_RESOLUTION
-        max_height, max_width = self.MAX_RESOLUTION
-        if img.height < min_height or img.width < min_width:
-            raise MinResolutionErrorExeption(f"Yuklangan rasim ko'rsatilganidan kichik {img.height} x {img.width}")
-        if img.height > max_height or img.width > max_width:
-            raise MaxResolutionErrorExeption(f"Yuklangan rasim ko'rsatilganidan Katta {img.height} x {img.width}")
-        return image
+        new_img = img.convert('RGB')
+
+        resized_new_img = new_img.resize((200,200),Image.ANTIALIAS)
+        filestream = BytesIO()
+        resized_new_img.save(filestream,'JPEG',quality=90)
+        filestream.seek(0)
+        name = '{} . {}'.format(*self.image.name.split('.'))
+        print(self.image.name)
+        self.image = InMemoryUploadedFile(
+            filestream, 'ImageFiled', name, 'jpeg/image', sys.getsizeof(filestream), None
+        )
+        super().save(*args,**kwargs)
+
 
 class Notebook(Product):
 
