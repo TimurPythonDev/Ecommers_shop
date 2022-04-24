@@ -6,11 +6,10 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 User = get_user_model()
 
 
-class LatestProductsManager:
+class LatestProdcutsManeger:
 
     def get_products_for_main_page(self,*args,**kwargs):
         with_respect_to = kwargs.get('with_respect_to')
-        #
         products = []
         ct_models = ContentType.objects.filter(model__in=args)
         for ct_model in ct_models:
@@ -21,15 +20,16 @@ class LatestProductsManager:
             if ct_model.exists():
                 if with_respect_to in args:
                     return sorted(
-                        products,key=lambda x:x.__class__._meta.model_name.startswith(with_respect_to),reverse=True
-                        )
-
+                        products,key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to),reverse=True
+                    )
         return products
-        #
+
+
 
 class LatestProducts:
 
-    objects = LatestProductsManager()
+    objects = LatestProdcutsManeger()
+
 
 class Category(models.Model):
 
