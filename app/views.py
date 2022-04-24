@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
 
-def test_view(request):
+
+def test_views(request):
     return render(request,'base.html')
