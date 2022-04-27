@@ -10,7 +10,7 @@ def test_views(request):
 class ProductDetailView(DetailView):
 
     CT_MODEL_MODEL_CLASS = {
-        'notebook': Notebook,
+        'notebook':Notebook,
         'smartphone':Smartphone
     }
 
@@ -19,8 +19,6 @@ class ProductDetailView(DetailView):
         self.queryset = self.model._base_manager.all()
         return super().dispatch(request,*args,**kwargs)
 
-    # model = Model
-    # queryset = Model.objects.all()
     context_object_name = 'product'
     template_name = 'product_detail.html'
     slug_url_kwarg = 'slug'

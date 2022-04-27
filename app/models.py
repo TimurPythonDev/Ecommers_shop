@@ -11,8 +11,6 @@ def get_product_url(obj,viewname):
     return reversed(viewname,kwargs={'ct_model':ct_model,'slug':obj.slug})
 
 
-
-
 class LatestProdcutsManeger:
 
     def get_products_for_main_page(self,*args,**kwargs):
@@ -93,8 +91,7 @@ class Smartphone(Product):
         return "{} : {}".format(self.category.name, self.title)
 
     def get_absolute_url(self):
-        return get_product_url(self, 'product_detail')
-
+        return get_product_url(self,'product_detail')
 
 class CartProduct(models.Model):
 
