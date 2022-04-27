@@ -12,7 +12,7 @@ class NotebookAdminForm(ModelForm):
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-        self.fields['image'].help_text = mark_safe("<span style='color:red; font-size:17px;'>Rasimni ko'rsatilganidan ko'p bo'lsa  {} x {} qirqib yuboradi".format(
+        self.fields['image'].help_text = mark_safe("<span style='color:red; font-size:17px;'>Rasm ko'rsatilgan hajimdan katta bo'lsa {} x {}ga qirqib tashlaydi".format(
             *Product.MAX_RESOLUTION
         ))
 
