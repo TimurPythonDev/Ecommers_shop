@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{ product.title }}
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .product-all {
+        padding-left: 500px;
+    }
+</style>
+
+
+<div class="product-all">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'base' %}">Bosh oyna</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ product.image.url }}" alt="" class="img-fluid">
+        </div>
+
+        <div class="col-md-8">
+            <h4><strong>{{ product.title }}</strong></h4>
+            <p><strong>Narxi: </strong>${{ product.price }} </p>
+            <p><strong>To'liq ma'lumot:</strong> {{ product.description }}</p>
+            <p><strong>Ma'lumot:</strong></p>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock content %}
