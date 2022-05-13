@@ -25,9 +25,14 @@
             <h4><strong>{{ product.title }}</strong></h4>
             <p><strong>Narhi:</strong> ${{ product.price }}</p>
             <p><strong>To'liq ma'lumot</strong> {{ product.description }}</p>
-            <p><strong>Ma'lumot:</strong> </p>
-        </div>
 
+        </div>
+        <p class="mt-4"><strong>Ma'lumot:</strong> </p>
+        {% if product.category.slug == 'notebooks' %}
+            {% include 'notebook_secifications.html' %}
+        {% else %}
+           {% include 'smartphone_specifications.html' %}
+        {% endif %}
     </div>
 </div>
 
