@@ -82,8 +82,10 @@ class Smartphone(Product):
     resolution = models.CharField(max_length=255,verbose_name='Ekran olchami')
     accum_volume = models.CharField(max_length=255,verbose_name='Akumlyator amper')
     ram = models.CharField(max_length=255, verbose_name='Ichki hotira RAM')
-    sd = models.BooleanField(default=True)
-    sd_volume_max = models.CharField(max_length=255,verbose_name='Asosiy hotira')
+    sd = models.BooleanField(default=True,verbose_name='Tashqi hotira')
+    sd_volume_max = models.CharField(max_length=255,null=True,blank=True,
+                                     verbose_name='Asosiy hotira'
+                                     )
     main_cam_mp = models.CharField(max_length=255,verbose_name='Asosiy kamera MP')
     frontal_cam_mp = models.CharField(max_length=255,verbose_name='Oldi kamera MP')
 
@@ -92,6 +94,13 @@ class Smartphone(Product):
 
     def get_absolute_url(self):
         return get_product_url(self,'product_detail')
+
+    # @property
+    # def sd(self):
+    #     if self.sd:
+    #         return 'Ha'
+    #     return 'Yoq'
+
 
 class CartProduct(models.Model):
 

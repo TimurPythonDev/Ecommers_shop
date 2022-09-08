@@ -22,3 +22,11 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     template_name = 'product_detail.html'
     slug_url_kwarg = 'slug'
+
+
+
+def register(request):
+    return render(request,'account/register.html')
+
+def login(request):
+    return render(request,'account/login.html')
